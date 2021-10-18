@@ -19,12 +19,12 @@ public class User {
     private long userId;
 
     @NotNull @Column(name = "user_name", length =50) private String username;
-    @NotNull @Column(length = 10) private int password;
+    @NotNull @Column(length = 10) private String password;
     @NotNull @Column(length = 50) private String name;
     @NotNull @Column(length = 50) private String email;
     @NotNull @Column(name = "reg_date", length = 20) private String regDate;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user")
     private List<Article> articleList = new ArrayList<>();
 
 }

@@ -23,7 +23,7 @@ public class Item {
     @NotNull @Column(name = "item_color", length = 20) private String itemColor;
     @NotNull @Column(name = "released_date", length = 20) private String releasedDate;
 
-    @OneToMany(mappedBy = "item", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "item")
     private List<Article> articleList = new ArrayList<>();
 
 }
