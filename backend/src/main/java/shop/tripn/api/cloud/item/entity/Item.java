@@ -13,10 +13,12 @@ import java.util.List;
 @Data @Component @Table(name = "items")
 public class Item {
 
+
     @Id
     @Column(name = "item_id")
     @GeneratedValue
     private long itemId;
+
 
     @NotNull @Column(name = "item_brand", length = 20) private String itemBrand;
     @NotNull @Column(name = "item_name", length = 50) private String itemName;
