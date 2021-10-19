@@ -10,12 +10,12 @@ export default function App() {
       <Route exact path='/' component = { Home }/>
       <Redirect from='/home' to = { '/' }/>
 
-      <Route exact path='/add' component= { UserAdd }/>
-      <Route exact path='/detail' component= { UserDetail }/>
-      <Route exact path='/list' component= { UserList }/>
-      <Route exact path='/login' component= { UserLogin }/>
-      <Route exact path='/modify' component= { UserModify }/>
-      <Route exact path='/remove' component= { UserRemove }/>
+      <Route exact path='/userAdd' component= { UserAdd }/>
+      <Route exact path='/userDetail' component= { UserDetail }/>
+      <Route exact path='/userList' component= { UserList }/>
+      <Route exact path='/userLogin' component= { UserLogin }/>
+      <Route exact path='/userModify' component= { UserModify }/>
+      <Route exact path='/userRemove' component= { UserRemove }/>
     </Switch>
   </>);
 }

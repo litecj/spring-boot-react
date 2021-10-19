@@ -19,7 +19,7 @@ public class User {
     private long userId;
 
 
-    @Column private @NotNull String username;
+    @Column(name = "user_name") private @NotNull String username;
     @Column private @NotNull String password;
     @Column private @NotNull String name;
     @Column private @NotNull String email;

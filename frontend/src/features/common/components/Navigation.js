@@ -5,12 +5,13 @@ export default function Navigation (){
     return (<>
         <div class="navi">
             <ul>
-                <li><Link to='/add'>add</Link></li>
-                <li><Link to='/detail'>detail</Link></li>
-                <li><Link to='/list'>list</Link></li>
-                <li><Link to='/login'>login</Link></li>
-                <li><Link to='/modify'>modify</Link></li>
-                <li><Link to='/remove'>remove</Link></li>
+                <li><Link to='home'>Home</Link></li>
+                <li><Link to='useradd'>UserAdd</Link></li>
+                <li><Link to='userdetail'>UserDetail</Link></li>
+                <li><Link to='userlist'>UserList</Link></li>
+                <li><Link to='userlogin'>UserLogin</Link></li>
+                <li><Link to='usermodify'>UserModify</Link></li>
+                <li><Link to='userremove'>UserRemove</Link></li>
             </ul>
         </div>
 </>)
