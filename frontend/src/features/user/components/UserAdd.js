@@ -40,6 +40,11 @@ export default function UserAdd() {
                     </label>
                 </li>
                 <li>
+                    <label>
+                        이름: <input type="text" id="user_name" />
+                    </label>
+                </li>
+                <li>
                     <input type="submit" value="회원가입"/>
                 </li>
             </ul>

@@ -14,7 +14,7 @@ export default function UserList() {
 
   return (
     <div>
-        <h1>사용자 목록</h1>
+        <h1>User List</h1>
     </div>
   );
 }

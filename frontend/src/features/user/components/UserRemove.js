@@ -14,7 +14,7 @@ export default function UserRemove() {
 
   return (
     <div>
-        <h1>회원 탈퇴</h1>
+        <h1>User Remove</h1>
     </div>
   );
 }
