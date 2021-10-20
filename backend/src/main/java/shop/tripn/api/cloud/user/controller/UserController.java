@@ -24,11 +24,18 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/login")
-    public ResponseEntity<Optional<User>> login (@RequestBody User user){
+    public ResponseEntity<User> login (@RequestBody UserDTO user){
 //        Optional<User> returnUser = userService.login(user.getUsername(), user.getPassword());
 //        System.out.println("마리아DB에서 넘어온 정보 :" + returnUser.toString());
-        return new ResponseEntity<>(userService.login(user.getUsername(), user.getPassword()), HttpStatus.OK);
+        return ResponseEntity.ok(userService.login(user.getUsername(), user.getPassword()).get());
     }
+
+//    @PostMapping("/login")
+//    public ResponseEntity<Optional<User>> login (@RequestBody User user){
+////        Optional<User> returnUser = userService.login(user.getUsername(), user.getPassword());
+////        System.out.println("마리아DB에서 넘어온 정보 :" + returnUser.toString());
+//        return new ResponseEntity<>(userService.login(user.getUsername(), user.getPassword()), HttpStatus.OK);
+//    }
 
 //    @PostMapping("/login")
 //    public ResponseEntity<String> login (@RequestBody User user){
@@ -39,7 +46,7 @@ public class UserController {
     @PostMapping()
     public ResponseEntity<Optional<User>> join  (@RequestBody User user){
         logger.info(String.format("User Join Info is %s", user.toString()));
-        return new ResponseEntity<>(userService.login(user.getUsername(), user.getPassword()), HttpStatus.OK);
+        return null;
     }
 
 

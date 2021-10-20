@@ -16,10 +16,10 @@ import React, { useState } from 'react';
 export default function UserAdd() {
     const SERVER = 'http://localhost:8080'
     const [join, setJoin] = useState({
-        user_name:'', password:'', email:'', name:'', reg_date: new Date().toLocaleDateString()
+        username:'', password:'', email:'', name:'', regDate: new Date().toLocaleDateString()
     })
 
-    const {user_name, password, email, name} = join
+    const {username, password, email, name} = join
     const handleChange = e =>{
         const {value, name} = e.target
         setJoin({
@@ -35,12 +35,12 @@ export default function UserAdd() {
         'Authorization': 'JWT fefege..'
       }
 
-    const handleSubmit = e => {
-        e.prevenDefault()
+      const handleSubmit = e => {
+        e.preventDefault()
         const joinRequest = {...join}
         alert(`회원가입 정보: ${JSON.stringify(joinRequest)}`)
         userJoin(joinRequest)
-        .then(res => {
+        .then(res =>{
             alert('회원가입 성공')
         })
         .catch(err =>{
@@ -56,7 +56,7 @@ export default function UserAdd() {
             <ul>
                 <li>
                     <label>
-                        아이디: <input type="text" id="user_name" name='user_name' value={user_name} onChange = {handleChange}
+                        아이디: <input type="text" id="username" name='username' value={username} onChange = {handleChange}
                          size="10" minlength="4" maxlength="15"/>
                     </label>
                     <small>4~15자리 이내의 영문과 숫자</small>
