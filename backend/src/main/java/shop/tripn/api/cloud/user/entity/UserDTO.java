@@ -5,6 +5,8 @@ import shop.tripn.api.cloud.board.entity.Article;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
+@NoArgsConstructor
 @Getter @Setter @ToString
 public class UserDTO implements Serializable{
     private static final long serialVersionUID = 1L;

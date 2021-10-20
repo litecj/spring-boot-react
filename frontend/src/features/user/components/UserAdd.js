@@ -1,4 +1,6 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useState } from 'react';
+
 // import { useSelector, useDispatch } from 'react-redux';
 // import {
 //   decrement,
@@ -12,36 +14,72 @@ import React from 'react';
 
 
 export default function UserAdd() {
+    const SERVER = 'http://localhost:8080'
+    const [join, setJoin] = useState({
+        user_name:'', password:'', email:'', name:'', reg_date: new Date().toLocaleDateString()
+    })
+
+    const {user_name, password, email, name} = join
+    const handleChange = e =>{
+        const {value, name} = e.target
+        setJoin({
+            ...join,
+            [name] : value
+        })
+    }
+    
+    const userJoin = joinRequest => 
+            axios.post(`${SERVER}/users`, JSON.stringify(joinRequest),{headers})
+    const headers = {
+        'Content-Type' : 'application/json',
+        'Authorization': 'JWT fefege..'
+      }
+
+    const handleSubmit = e => {
+        e.prevenDefault()
+        const joinRequest = {...join}
+        alert(`회원가입 정보: ${JSON.stringify(joinRequest)}`)
+        userJoin(joinRequest)
+        .then(res => {
+            alert('회원가입 성공')
+        })
+        .catch(err =>{
+            alert(`회원가입 실패 : ${err}`)
+        })
+
+    }
 
   return (
     <div>
-        <h1>회원 가입을 환영합니다</h1>
-        <form>
+            <h1>회원 가입을 환영합니다</h1>
+        <form onSubmit={handleSubmit} method='POST'>
             <ul>
                 <li>
                     <label>
-                        아이디: <input type="text" id="user_id" size="10" minlength="4" maxlength="15"/>
+                        아이디: <input type="text" id="user_name" name='user_name' value={user_name} onChange = {handleChange}
+                         size="10" minlength="4" maxlength="15"/>
                     </label>
                     <small>4~15자리 이내의 영문과 숫자</small>
                 </li>
                 <li>
                     <label>
-                        이메일: <input type="email" id="user_email"/>
+                        이메일: <input type="email" id="email" name ='email' value={email} onChange = {handleChange}/>
                     </label>
                 </li>
                 <li>
                     <label>
-                        비밀번호: <input type="password" id="user_pwd"/>
+                        비밀번호: <input type="password" id="password" name= 'password' value={password} onChange = {handleChange}/>
                     </label>
                 </li>
-                <li>
+                {/* <li>
                     <label>
                         비밀번호 확인: <input type="password" id="check_pwd"/>
                     </label>
-                </li>
+                </li> */}
                 <li>
                     <label>
-                        이름: <input type="text" id="user_name" />
+                        이름: <input type="text" id="name" name='name' value={name} onChange = {handleChange}/>
+                        {/* <input type="hidden" id="reg_date" name='reg_date' value={} /> */}
                     </label>
                 </li>
                 <li>
