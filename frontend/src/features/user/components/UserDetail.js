@@ -29,15 +29,17 @@ export default function UserDetail() {
           <ul>
               <li>
                   <label>
-                      <span>회원번호 :  </span>
+                      <span>회원번호 : {detail.userId} </span>
                   </label>
+              </li>
+              <li>    
                   <label>
-                      아이디: <span></span>
+                      아이디: <span> {detail.username} </span>
                   </label>
               </li>
               <li>
                   <label>
-                      이메일: <span></span>
+                      이메일: <span> {detail.email} </span>
                   </label>
               </li>
               <li>
@@ -47,7 +49,7 @@ export default function UserDetail() {
               </li>
               <li>
                   <label>
-                      이름: <span></span>
+                      이름: <span> {detail.name} </span>
                   </label>
               </li>
               <li>
