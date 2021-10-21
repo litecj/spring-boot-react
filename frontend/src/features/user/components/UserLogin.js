@@ -26,7 +26,10 @@ export default function UserLogin() {
     .then(res => {
       alert('로그인 성공, '+JSON.stringify(res.data))
       localStorage.setItem('sessionUser', JSON.stringify(res.data))
+      console.log("111111111111111111111111111")
       history.push("/users/detail")
+      console.log("22222222222222222222222222")
+
     })
     .catch(err => {
       alert('로그인 실패' + err)

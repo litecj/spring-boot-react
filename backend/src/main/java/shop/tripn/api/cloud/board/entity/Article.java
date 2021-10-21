@@ -14,18 +14,18 @@ public class Article {
 
     @Id
     @Column(name = "article_id")
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long articleId;
 
     @NotNull @Column(length = 50) private String title; //동일명일 시, (name = "title") 생략 가능
     @NotNull @Column(length =200) private String content;
-    @NotNull @Column(name = "written_date", length = 20) private String writtenDate;
+    @NotNull @Column(name = "written_date") private String writtenDate;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @ManyToOne
+    @JoinColumn(name = "user_id", insertable = false, updatable = false)
     private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "item_id")
+    @ManyToOne
+    @JoinColumn(name = "item_id", insertable = false, updatable = false)
     private Item item;
 }

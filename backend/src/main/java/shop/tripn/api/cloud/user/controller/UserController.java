@@ -8,20 +8,24 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import shop.tripn.api.cloud.common.CommonController;
 import shop.tripn.api.cloud.user.entity.User;
 import shop.tripn.api.cloud.user.entity.UserDTO;
+import shop.tripn.api.cloud.user.repository.UserRepository;
 import shop.tripn.api.cloud.user.service.UserService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Optional;
 
 @CrossOrigin("*")
 @RequiredArgsConstructor @RestController @RequestMapping("/users")
-public class UserController {
+public class UserController implements CommonController<User, Long> {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final UserService userService;
+    private final UserRepository userRepository;
 
     @PostMapping("/login")
     public ResponseEntity<User> login (@RequestBody UserDTO user){
@@ -43,26 +47,67 @@ public class UserController {
 //        return new ResponseEntity<>(HttpStatus.OK);
 //    }
 
-    @PostMapping()
-    public ResponseEntity<Optional<User>> join  (@RequestBody User user){
-        logger.info(String.format("User Join Info is %s", user.toString()));
-        return null;
+//    @PostMapping()
+//    public ResponseEntity<Optional<User>> join  (@RequestBody User user){
+//        logger.info(String.format("User Join Info is %s", user.toString()));
+//        return null;
+//    }
+
+
+//    @GetMapping("/{id}")
+//    public ResponseEntity<UserDTO> getById(@PathVariable long id) {
+//        User user = userService.findById(id).get();
+//        UserDTO userDTO = UserDTO.builder()
+//                .userId(user.getUserId())
+//                .username(user.getUsername())
+//                .password(user.getPassword())
+//                .name(user.getName())
+//                .email(user.getEmail())
+//                .regDate(user.getRegDate())
+//                .build();
+//        return new ResponseEntity<>(userDTO, HttpStatus.OK);
+//    }
+
+    @Override
+    public ResponseEntity<List<User>> findAll() {
+        return ResponseEntity.ok(userRepository.findAll());
     }
 
-
+    @Override
     @GetMapping("/{id}")
-    public ResponseEntity<UserDTO> getById(@PathVariable long id) {
-        User user = userService.findById(id).get();
-        UserDTO userDTO = UserDTO.builder()
-                .userId(user.getUserId())
-                .username(user.getUsername())
-                .password(user.getPassword())
-                .name(user.getName())
-                .email(user.getEmail())
-                .regDate(user.getRegDate())
-                .build();
-        return new ResponseEntity<>(userDTO, HttpStatus.OK);
+    public ResponseEntity<User> getById(@PathVariable Long id) {
+
+        return ResponseEntity.ok(userRepository.getById(id));
     }
+    @PostMapping("")
+    @Override
+    public ResponseEntity<String> save(@RequestBody User user) {
+        logger.info(String.format("회원가입 정보: %s", user.toString()));
+        userRepository.save(user);
+        return ResponseEntity.ok("SUCCESS");
+    }
+
+    @Override
+    public ResponseEntity<Optional<User>> findById(Long id) {
+        return ResponseEntity.ok(userRepository.findById(id));
+    }
+
+    @Override
+    public ResponseEntity<Boolean> existsById(Long id) {
+        return ResponseEntity.ok(userRepository.existsById(id));
+    }
+
+    @Override
+    public ResponseEntity<Long> count() {
+        return ResponseEntity.ok(userRepository.count());
+    }
+
+    @Override
+    public ResponseEntity<String> deleteById(Long id) {
+        userRepository.deleteById(id);
+        return ResponseEntity.ok("SUCCESS");
+    }
+
 
 //    @GetMapping("/user/{id}")
 //    public Optional<User> findById(@PathVariable long id){

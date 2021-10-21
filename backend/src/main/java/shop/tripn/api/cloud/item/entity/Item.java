@@ -16,14 +16,14 @@ public class Item {
 
     @Id
     @Column(name = "item_id")
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long itemId;
 
 
-    @NotNull @Column(name = "item_brand", length = 20) private String itemBrand;
-    @NotNull @Column(name = "item_name", length = 50) private String itemName;
-    @NotNull @Column(name = "item_color", length = 20) private String itemColor;
-    @NotNull @Column(name = "released_date", length = 20) private String releasedDate;
+    @NotNull @Column(name = "item_brand") private String itemBrand;
+    @NotNull @Column(name = "item_name") private String itemName;
+    @NotNull @Column(name = "item_color") private String itemColor;
+    @NotNull @Column(name = "released_date") private String releasedDate;
 
     @OneToMany(mappedBy = "item", fetch = FetchType.EAGER)
     private List<Article> articleList = new ArrayList<>();
