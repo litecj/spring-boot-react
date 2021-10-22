@@ -5,10 +5,13 @@ import axios from 'axios';
 export default function UserDetail() {
   const SERVER = 'http://localhost:8080'
   const history = useHistory()
-  const [detail, setDetail] = useState()
+  const [detail, setDetail] = useState({
+    userId:'', username:'', password:'', email:'', name:'', regDate: new Date().toLocaleDateString()
+  })
   
   const fetchOne = () => {
     const sessionUser = JSON.parse(localStorage.getItem('sessionUser'))
+    console.log("디테일 들어왔어 " + JSON.stringify(sessionUser))
     alert('사용자 아이디 : '+ sessionUser.userId)
     axios.get(`${SERVER}/users/${sessionUser.userId}`)
     .then(res => {
@@ -53,7 +56,7 @@ export default function UserDetail() {
                   </label>
               </li>
               <li>
-                  <input type="button" value="회원정보 수정"/>
+                  <input type="button" value="회원정보 수정" onClick={()=> history.push('/users/modify')}/>
               </li>
           </ul>
 
