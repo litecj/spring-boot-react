@@ -32,14 +32,14 @@ export default function UserModify() {
       'Authorization': 'JWT fefege..'
     }
 
-    const handleSubmit = e => {
+  const handleSubmit = e => {
       e.preventDefault()
       const modifyRequest = {...modify}
       alert(`회원 수정 정보: ${JSON.stringify(modifyRequest)}`)
       UserModify(modifyRequest)
       .then(res =>{
           alert('회원 정보 수정 성공' + res)
-          localStorage.setItem('sessionUser', JSON.stringify(res.data))
+          // localStorage.setItem('sessionUser', JSON.stringify(res.data))
           history.push('/users/detail')
       })
       .catch(err =>{
