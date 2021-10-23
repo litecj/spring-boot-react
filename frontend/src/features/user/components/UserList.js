@@ -6,7 +6,6 @@ export default function UserList() {
   const [list, setList] = useState([])
   const SERVER = 'http://localhost:8080'
 
-
   const  fetchList = () => {
       axios.get(`${SERVER}/users`)
       .then(res => setList(res.data))
@@ -16,7 +15,6 @@ export default function UserList() {
     fetchList()
   }, [])
 
-  
   return (
     <div>
         <h1>User List</h1>

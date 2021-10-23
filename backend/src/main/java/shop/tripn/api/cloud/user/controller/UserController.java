@@ -88,19 +88,16 @@ public class UserController implements CommonController<User, Long> {
         userRepository.save(user);
         return ResponseEntity.ok("SUCCESS");
     }
-
     @PutMapping()
     public ResponseEntity<User> update(@RequestBody User user) {
         logger.info(String.format("회원수정 정보: %s", user.toString()));
         userRepository.save(user);
         return ResponseEntity.ok(userRepository.getById(user.getUserId()));
     }
-
     @Override
     public ResponseEntity<Optional<User>> findById(Long id) {
         return ResponseEntity.ok(userRepository.findById(id));
     }
-
     @Override
     public ResponseEntity<Boolean> existsById(Long id) {
         return ResponseEntity.ok(userRepository.existsById(id));
