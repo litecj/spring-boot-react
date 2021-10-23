@@ -3,27 +3,31 @@ import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
 
 export default function UserDetail() {
-  const SERVER = 'http://localhost:8080'
-  const history = useHistory()
-  const [detail, setDetail] = useState({
-    userId:'', username:'', password:'', email:'', name:'', regDate: new Date().toLocaleDateString()
-  })
-  
-  const fetchOne = () => {
-    const sessionUser = JSON.parse(localStorage.getItem('sessionUser'))
-    console.log("디테일 들어왔어 " + JSON.stringify(sessionUser))
-    alert('사용자 아이디 : '+ sessionUser.userId)
-    axios.get(`${SERVER}/users/${sessionUser.userId}`)
-    .then(res => {
-      setDetail(res.data)
+    const SERVER = 'http://localhost:8080'
+    const history = useHistory()
+    const [detail, setDetail] = useState({
+        userId:'', username:'', password:'', email:'', name:'', regDate: new Date().toLocaleDateString()
     })
-    .catch(err => {
-        alert(`${err}`)
-    })
+    
+    const fetchOne = () => {
+        const sessionUser = JSON.parse(localStorage.getItem('sessionUser'))
+        alert('사용자 아이디 : '+ sessionUser.userId)
+        axios.get(`${SERVER}/users/${sessionUser.userId}`)
+        .then(res => {
+        setDetail(res.data)
+        })
+        .catch(err => {
+            alert(`${err}`)
+        })
+        }
+    useEffect(()=> {
+        fetchOne()}, 
+        [])
+    const logout = e => {
+        e.preventDefault()
+        localStorage.setItem('sessionUser','')
+        history.push('/')
     }
-  useEffect(()=> {
-    fetchOne()}, 
-    [])
 
 
   return (
@@ -57,6 +61,7 @@ export default function UserDetail() {
               </li>
               <li>
                   <input type="button" value="회원정보 수정" onClick={()=> history.push('/users/modify')}/>
+                  <input type="button" value="로그아웃" onClick={logout}/>
               </li>
           </ul>
 
