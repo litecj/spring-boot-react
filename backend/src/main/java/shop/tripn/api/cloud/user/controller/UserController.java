@@ -31,7 +31,8 @@ public class UserController implements CommonController<User, Long> {
     public ResponseEntity<User> login (@RequestBody User user){
 //        Optional<User> returnUser = userService.login(user.getUsername(), user.getPassword());
 //        System.out.println("마리아DB에서 넘어온 정보 :" + returnUser.toString());
-        return ResponseEntity.ok(userService.login(user.getUsername(), user.getPassword()).get());
+//        return ResponseEntity.ok(userService.login(user.getUsername(), user.getPassword()).get()); // get은 없는 경우를 받아들이지 않음.
+        return ResponseEntity.ok(userService.login(user.getUsername(), user.getPassword()).orElse(new User()));
     }
 
 //    @PostMapping("/login")
@@ -68,6 +69,7 @@ public class UserController implements CommonController<User, Long> {
 //        return new ResponseEntity<>(userDTO, HttpStatus.OK);
 //    }
 
+    @GetMapping()
     @Override
     public ResponseEntity<List<User>> findAll() {
         return ResponseEntity.ok(userRepository.findAll());
@@ -87,7 +89,7 @@ public class UserController implements CommonController<User, Long> {
         return ResponseEntity.ok("SUCCESS");
     }
 
-    @PutMapping
+    @PutMapping()
     public ResponseEntity<User> update(@RequestBody User user) {
         logger.info(String.format("회원수정 정보: %s", user.toString()));
         userRepository.save(user);

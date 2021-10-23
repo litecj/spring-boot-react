@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios'
-import { useHistory } from 'react-router';
+import { useHistory } from 'react-router-dom';
 
 export default function UserLogin() {
   const SERVER = 'http://localhost:8080'
@@ -21,16 +21,25 @@ export default function UserLogin() {
   }
   const handleClick = e => {
     e.preventDefault()
+    e.stopPropagation()
     const loginRequest = {username, password}
     userLogin(loginRequest)
     .then(res => {
-      alert('로그인 성공, '+JSON.stringify(res.data))
-      localStorage.setItem('sessionUser', JSON.stringify(res.data))
-      history.push("/users/detail")
+      const user = JSON.stringify(res.data)
+      if(user.userId !== null){
+        alert('로그인 성공, '+JSON.stringify(res.data))
+        localStorage.setItem('sessionUser', JSON.stringify(res.data))
+        history.push("/users/detail")}
+      else{
+        alert('아이디, 비번 오류로 인한 로그인 실패, '+JSON.stringify(res.data))
+        document.getElementById('username').value = ''
+        document.getElementById('password').value = ''
+        history.push("/users/login")}
+      
 
     })
     .catch(err => {
-      alert('로그인 실패' + err)
+      alert('접속 실패' + err)
     })
 
   }
