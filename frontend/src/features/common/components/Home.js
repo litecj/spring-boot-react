@@ -9,6 +9,7 @@ export default function Home() {
         localStorage.setItem('sessionUser','')
         history.push('/')
     }
+    
 
     return (<>
         {sessionUser !== '' && <input type="button" value="로그아웃" onClick={logout}/> }
