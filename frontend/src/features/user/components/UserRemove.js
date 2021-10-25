@@ -1,4 +1,4 @@
-import axios from 'axios';
+// import axios from 'axios';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
@@ -6,20 +6,21 @@ export default function UserRemove() {
   const [password, setPassword] = useState({})
   const sessionUser = JSON.parse(localStorage.getItem('sessionUser'));
   const history = useHistory()
-  const SERVER = 'http://localhost:8080'
-  const headers = {
-    'Content-Type' : 'application/json',
-    'Authorization': 'JWT fefege..'
-  }
+  // const SERVER = 'http://localhost:8080'
+  // const headers = {
+  //   'Content-Type' : 'application/json',
+  //   'Authorization': 'JWT fefege..'
+  // }
 
   const handleChange = e => {
     setPassword(e.target.value)
   }
   const handleClick = e => {
     e.preventDefault()
-    const removeRequest = sessionUser
+    // const removeRequest = sessionUser
     if(sessionUser.password === password){
-      axios.delete(`${SERVER}/users/${sessionUser.userId}`, JSON.stringify(sessionUser.userId), {headers})
+      // axios.delete(`${SERVER}/users/${sessionUser.userId}`, JSON.stringify(sessionUser.userId), {headers})
+      userRemove(sessionUser)
       .then(res => {
         console.log(res.data)
         localStorage.setItem('sessionUser', '')

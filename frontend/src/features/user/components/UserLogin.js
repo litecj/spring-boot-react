@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import axios from 'axios'
+// import axios from 'axios'
 import { useHistory } from 'react-router-dom';
 
 export default function UserLogin() {
-  const SERVER = 'http://localhost:8080'
+  // const SERVER = 'http://localhost:8080'
   const [login, setLogin] = useState({})
   const {username, password} = login
   const history = useHistory()
@@ -15,10 +15,10 @@ export default function UserLogin() {
       [name] : value
     })
   }
-  const headers = {
-    'Content-Type' : 'application/json',
-    'Authorization': 'JWT fefege..'
-  }
+  // const headers = {
+  //   'Content-Type' : 'application/json',
+  //   'Authorization': 'JWT fefege..'
+  // }
   const handleClick = e => {
     e.preventDefault()
     e.stopPropagation()
@@ -43,8 +43,8 @@ export default function UserLogin() {
     })
 
   }
-  const userLogin = loginRequest => 
-    axios.post(`${SERVER}/users/login`, JSON.stringify(loginRequest),{headers})
+  // const userLogin = loginRequest => 
+  //   axios.post(`${SERVER}/users/login`, JSON.stringify(loginRequest),{headers})
   return (
     <form method="POST">
     <ul>
