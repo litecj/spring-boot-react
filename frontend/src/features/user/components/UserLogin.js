@@ -26,7 +26,7 @@ export default function UserLogin() {
     userLogin(loginRequest)
     .then(res => {
       const user = JSON.stringify(res.data)
-      if(user.userId !== null){
+      if(user.userId !== 0){
         alert('로그인 성공, '+JSON.stringify(res.data))
         localStorage.setItem('sessionUser', JSON.stringify(res.data))
         history.push("/users/detail")}
