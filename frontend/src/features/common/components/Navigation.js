@@ -6,7 +6,7 @@ export default function Navigation (){
         <div class="navi">
             <ul>
                 <li><Link to='/home'>Home</Link></li>
-                <li><Link to='/users/add'>UserAdd</Link></li>
+                <li><Link to='/users/join'>UserAdd</Link></li>
                 <li><Link to='/users/detail'>UserDetail</Link></li>
                 <li><Link to='/users/list'>UserList</Link></li>
                 <li><Link to='/users/login'>UserLogin</Link></li>

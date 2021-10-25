@@ -30,7 +30,7 @@ const userModify = X => axios.put(`${SERVER}/users`, JSON.stringify(X),{headers}
 const userRemove = X => axios.delete(`${SERVER}/users/${X.userId}`, JSON.stringify(X.userId), {headers})
 
 
-export default{
+export default {
   userJoin,
   userFetchOne,
   userFetchList,
