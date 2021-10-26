@@ -1,6 +1,8 @@
 // import axios from 'axios';
-import React, { useState } from 'react';
-import { useHistory } from 'react-router';
+import React, { useState, useCallback } from 'react';
+import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { joinPage } from 'features/user/reducer/userSlice.reducer';
 
 // import { useSelector, useDispatch } from 'react-redux';
 // import {
@@ -17,18 +19,20 @@ import { useHistory } from 'react-router';
 export default function UserAdd() {
     const history = useHistory()
     // const SERVER = 'http://localhost:8080'
+    const dicpatch = useDispatch()
     const [join, setJoin] = useState({
         username:'', password:'', email:'', name:'', regDate: new Date().toLocaleDateString()
     })
 
     const {username, password, email, name} = join
-    const handleChange = e =>{
+    const handleChange = useCallback(e => {
         const {value, name} = e.target
         setJoin({
             ...join,
             [name] : value
         })
-    }
+    }, [join]
+    )
     
     // const userJoin = joinRequest => 
     //         axios.post(`${SERVER}/users`, JSON.stringify(joinRequest),{headers})

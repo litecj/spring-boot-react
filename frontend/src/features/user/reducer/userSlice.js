@@ -81,12 +81,12 @@ const userJoinPage = async(X) => {
 }
 
 const userDetailPage = async(X) => {
-  const res = await userAPI.userFetchOne(X)
+  const res = await userAPI.userDetail(X)
   return res.data
 }
 
 const userListPage = async() => {
-  const res = await userAPI.userFetchList()  // async : 비동기(호출 되었을 때? = 값이 들어 올때 까지) -> 값이 들어오면 반응 BUT list는 'useEffect' 사용하기에 즉시 이벤트 발생
+  const res = await userAPI.userlist()  // async : 비동기(호출 되었을 때? = 값이 들어 올때 까지) -> 값이 들어오면 반응 BUT list는 'useEffect' 사용하기에 즉시 이벤트 발생
                                              // await : 이 함수가 호출 되었을 때 까지 기다려 BUT list는 필요 값 없으므로 바로 반응
                                              // if 필요 값 지정 시, JAVA에서 값 송출하는 것이 없기에, 계속 wait 중 -> (반응 없음)값 확인 불가
   return res.data
@@ -108,10 +108,57 @@ const userRemovePage = async(X) => {
 }
 
 export const joinPage = createAsyncThunk('users/join', userJoinPage)
-export const detailPage = createAsyncThunk('users/detail', userDetailPage)
+export const detailPage = createAsyncThunk('users/one', userDetailPage)
 export const listPage = createAsyncThunk('users/list', userListPage)
 export const loginPage = createAsyncThunk('users/login', userLoginPage)
 export const modifyPage = createAsyncThunk('users/modify', userModifyPage)
 export const removePage = createAsyncThunk('users/remove', userRemovePage)
+
+// 예시 자료
+// (alias) createSlice<{
+//   userState: {};
+//   type: string;
+//   keyword: string;
+//   params: {};
+// }, {}, any>(options: CreateSliceOptions<{
+//   userState: {};
+//   type: string;
+//   keyword: string;
+//   params: {};
+// }, {}, any>): Slice<...>
+// import createSlice
+
+const userSlice = createSlice({
+  name: users,
+  initialState: {
+    userState:{
+      userId : '', username:'', password:'', email:'', name:'', regDate: new Date().toLocaleDateString()
+    },
+    type:'',
+    keyword: '',
+    params: {}
+  },
+  reducers: {},
+  extraReducers:{
+    [joinPage.fulfilled] : ( state, action ) => { state.userState = action.payload },
+    [detailPage.fulfilled] : ( state, {meta, payload} ) => { state.userState = payload },
+    [listPage.fulfilled] : ( state, {meta, payload} ) => { state.pageResult = payload},
+    [loginPage.fulfilled] : ( state, {meta, payload} ) => { 
+      state.userState = payload
+      window.localStorage.setItem('sessionUser', JSON.stringify(payload))
+     },
+    [modifyPage.fulfilled] : ( state, action ) => { 
+      state.userState = action.payload
+      window.localStorage.setItem('sessionUser', JSON.stringify(payload))
+     },
+    [removePage.fulfilled] : ( state, {meta, payload} ) => { 
+      state.userState = payload
+      window.localStorage.setItem('sessionUser','')
+    }
+  }
+})
+
+export const currentUserState = (state) => state.users.userState
+export const currentUserParam = state => state.users.param
 
 export default userSlice.reducer;

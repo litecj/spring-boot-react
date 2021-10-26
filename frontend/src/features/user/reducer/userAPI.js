@@ -19,9 +19,9 @@ const headers = {
 // const userJoin = param => axios.post(`${SERVER}/users`, JSON.stringify(param),{headers})
 const userJoin = X => axios.post(`${SERVER}/users`, JSON.stringify(X),{headers})
 // by. userDetail
-const userFetchOne = X => axios.get(`${SERVER}/users/${X.userId}`)
+const userDetail = X => axios.get(`${SERVER}/users/${X.userId}`)
 // by. userlist
-const userFetchList = () => axios.get(`${SERVER}/users`)
+const userlist = () => axios.get(`${SERVER}/users`)
 // by. userLogin
 const userLogin = X => axios.post(`${SERVER}/users/login`, JSON.stringify(X),{headers})
 // by. userModify
@@ -32,8 +32,8 @@ const userRemove = X => axios.delete(`${SERVER}/users/${X.userId}`, JSON.stringi
 
 export default {
   userJoin,
-  userFetchOne,
-  userFetchList,
+  userDetail,
+  userlist,
   userLogin,
   userModify,
   userRemove
