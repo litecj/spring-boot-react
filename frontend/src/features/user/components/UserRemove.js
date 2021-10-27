@@ -20,7 +20,7 @@ export default function UserRemove() {
     // const removeRequest = sessionUser
     if(sessionUser.password === password){
       // axios.delete(`${SERVER}/users/${sessionUser.userId}`, JSON.stringify(sessionUser.userId), {headers})
-      userRemove(sessionUser)
+      UserRemove(sessionUser)
       .then(res => {
         console.log(res.data)
         localStorage.setItem('sessionUser', '')

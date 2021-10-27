@@ -2,7 +2,7 @@
 import React, { useState, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { joinPage } from 'features/user/reducer/userSlice.reducer';
+import { joinPage } from 'features/user/reducer/userSlice'
 
 // import { useSelector, useDispatch } from 'react-redux';
 // import {
@@ -19,20 +19,29 @@ import { joinPage } from 'features/user/reducer/userSlice.reducer';
 export default function UserAdd() {
     const history = useHistory()
     // const SERVER = 'http://localhost:8080'
-    const dicpatch = useDispatch()
+    const dispatch = useDispatch()
     const [join, setJoin] = useState({
         username:'', password:'', email:'', name:'', regDate: new Date().toLocaleDateString()
     })
 
     const {username, password, email, name} = join
-    const handleChange = useCallback(e => {
-        const {value, name} = e.target
-        setJoin({
-            ...join,
-            [name] : value
-        })
-    }, [join]
-    )
+    const handleChange = useCallback(
+        e => {
+            const { value, name } = e.target
+            setJoin({
+                ...join,
+                [name] : value
+            })
+        }, [join]
+    ) 
+    // const handleChange = useCallback(e => {
+    //     const {value, name} = e.target
+    //     setJoin({
+    //         ...join,
+    //         [name] : value
+    //     })
+    // }, [join]
+    // )
     
     // const userJoin = joinRequest => 
     //         axios.post(`${SERVER}/users`, JSON.stringify(joinRequest),{headers})
@@ -41,18 +50,42 @@ export default function UserAdd() {
     //     'Authorization': 'JWT fefege..'
     //   }
 
-      const handleSubmit = e => {
+      const handleSubmit = async (e) => {
         e.preventDefault()
-        const joinRequest = {...join}
-        alert(`회원가입 정보: ${JSON.stringify(joinRequest)}`)
-        userJoin(joinRequest)
-        .then(res =>{
-            alert('회원가입 성공')
-            history.push('/users/login')
-        })
-        .catch(err =>{
-            alert(`회원가입 실패 : ${err}`)
-        })
+        e.stopPropagation()     //
+        /* const formData = new FormData()
+        formData.append('username', join.username)
+        formData.append('password', join.password)
+        formData.append('email', join.email)
+        formData.append('name', join.name)
+        formData.append('regDate', join.regDate)
+
+        alert(`회원가입 ID 2 : ${formData.get('username')}`)
+        await dispatch(joinPage(formData))
+        alert(`${join.username} 회원가입 환영`)
+        history.push('/users/login') */
+
+        const json = {
+            'username': join.username,
+            'password': join.password,
+            'email': join.email,
+            'name': join.name,
+            'regDate': join.regDate
+        }
+        alert(`회원가입 정보: ${JSON.stringify(json)}`)
+        await dispatch(joinPage(json))
+        alert(`${join.username} 회원가입 환영`)
+        history.push('/users/login')
+        // const joinRequest = {...join}
+        // alert(`회원가입 정보: ${JSON.stringify(joinRequest)}`)
+        // userJoin(joinRequest)
+        // .then(res =>{
+        //     alert('회원가입 성공')
+        //     history.push('/users/login')
+        // })
+        // .catch(err =>{
+        //     alert(`회원가입 실패 : ${err}`)
+        // })
 
     }
 
@@ -90,7 +123,7 @@ export default function UserAdd() {
                     </label>
                 </li>
                 <li>
-                    <input type="submit" value="회원가입"/>
+                    <input type="submit" onClick={ e => handleSubmit(e)} value="회원가입"/>
                 </li>
             </ul>
         </form>

@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { userAPI } from '..';
+import { userAPI } from 'features/user';
 
 
 // const initialState = {
@@ -75,40 +75,40 @@ import { userAPI } from '..';
 
 
 
-const userJoinPage = async(X) => {
+const userJoinPage = async (X) => {
   const res = await userAPI.userJoin(X)  // async : 비동기(호출 되었을 때? = 값이 들어 올때 까지) / await : 이 함수가 호출 되었을 때 까지 기다려 => 값이 들어오면 반응 할거야
   return res.data
 }
 
-const userDetailPage = async(X) => {
+const userDetailPage = async (X) => {
   const res = await userAPI.userDetail(X)
   return res.data
 }
 
-const userListPage = async() => {
-  const res = await userAPI.userlist()  // async : 비동기(호출 되었을 때? = 값이 들어 올때 까지) -> 값이 들어오면 반응 BUT list는 'useEffect' 사용하기에 즉시 이벤트 발생
+const userListPage = async () => {
+  const res = await userAPI.userList()  // async : 비동기(호출 되었을 때? = 값이 들어 올때 까지) -> 값이 들어오면 반응 BUT list는 'useEffect' 사용하기에 즉시 이벤트 발생
                                              // await : 이 함수가 호출 되었을 때 까지 기다려 BUT list는 필요 값 없으므로 바로 반응
                                              // if 필요 값 지정 시, JAVA에서 값 송출하는 것이 없기에, 계속 wait 중 -> (반응 없음)값 확인 불가
   return res.data
 }
 
-const userLoginPage = async(X) => {
+const userLoginPage = async (X) => {
   const res = await userAPI.userLogin(X)
   return res.data
 }
 
-const userModifyPage = async(X) => {
+const userModifyPage = async (X) => {
   const res = await userAPI.userModify(X)
   return res.data
 }
 
-const userRemovePage = async(X) => {
+const userRemovePage = async (X) => {
   const res = await userAPI.userRemove(X)
   return res.data
 }
 
 export const joinPage = createAsyncThunk('users/join', userJoinPage)
-export const detailPage = createAsyncThunk('users/one', userDetailPage)
+export const detailPage = createAsyncThunk('users/dtail', userDetailPage)
 export const listPage = createAsyncThunk('users/list', userListPage)
 export const loginPage = createAsyncThunk('users/login', userLoginPage)
 export const modifyPage = createAsyncThunk('users/modify', userModifyPage)
@@ -129,36 +129,39 @@ export const removePage = createAsyncThunk('users/remove', userRemovePage)
 // import createSlice
 
 const userSlice = createSlice({
-  name: users,
+  name: 'users',
   initialState: {
-    userState:{
-      userId : '', username:'', password:'', email:'', name:'', regDate: new Date().toLocaleDateString()
+    userState: {
+      // userId : '', 
+      username:'', password:'', email:'', name:'', regDate: ''
     },
-    type:'',
+    type: '',
     keyword: '',
     params: {}
   },
   reducers: {},
-  extraReducers:{
-    [joinPage.fulfilled] : ( state, action ) => { state.userState = action.payload },
-    [detailPage.fulfilled] : ( state, {meta, payload} ) => { state.userState = payload },
-    [listPage.fulfilled] : ( state, {meta, payload} ) => { state.pageResult = payload},
-    [loginPage.fulfilled] : ( state, {meta, payload} ) => { 
+  extraReducers: {
+    [joinPage.fulfilled]: ( state, action ) => { 
+      state.userState = action.payload 
+    },
+    [detailPage.fulfilled]: ( state, {meta, payload} ) => { state.userState = payload},
+    [listPage.fulfilled]: ( state, {meta, payload} ) => { state.pageResult = payload },
+    [loginPage.fulfilled]: ( state, {meta, payload} ) => {
       state.userState = payload
       window.localStorage.setItem('sessionUser', JSON.stringify(payload))
-     },
-    [modifyPage.fulfilled] : ( state, action ) => { 
-      state.userState = action.payload
-      window.localStorage.setItem('sessionUser', JSON.stringify(payload))
-     },
-    [removePage.fulfilled] : ( state, {meta, payload} ) => { 
+    },
+    [modifyPage.fulfilled]: ( state, action ) => { 
+      state.userState = action.payload 
+      window.localStorage.setItem('sessionUser', JSON.stringify(action.payload))
+    },
+    [removePage.fulfilled]: ( state, {meta, payload }) => { 
       state.userState = payload
-      window.localStorage.setItem('sessionUser','')
+      window.localStorage.setItem('sessionUser', '')
     }
   }
 })
 
-export const currentUserState = (state) => state.users.userState
+export const currentUserState = state => state.users.userState
 export const currentUserParam = state => state.users.param
 
 export default userSlice.reducer;

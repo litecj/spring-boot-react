@@ -6,14 +6,14 @@ export default function UserList() {
   const [list, setList] = useState([])
   // const SERVER = 'http://localhost:8080'
 
-  const  fetchList = () => {
+  const  userList = () => {
       // axios.get(`${SERVER}/users`)
-      userFetchList()
+      userList()
       .then(res => setList(res.data))
       .catch(err => console.log(err))
   }
   useEffect(() => {
-    fetchList()
+    userList()
   }, [])
 
   return (

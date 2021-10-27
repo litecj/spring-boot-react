@@ -17,23 +17,23 @@ const headers = {
 
 // by. useradd
 // const userJoin = param => axios.post(`${SERVER}/users`, JSON.stringify(param),{headers})
-const userJoin = X => axios.post(`${SERVER}/users`, JSON.stringify(X),{headers})
+const userJoin = x => axios.post(`${SERVER}/users`, JSON.stringify(x),{headers})
 // by. userDetail
-const userDetail = X => axios.get(`${SERVER}/users/${X.userId}`)
+const userDetail = x => axios.get(`${SERVER}/users/${x.userId}`)
 // by. userlist
-const userlist = () => axios.get(`${SERVER}/users`)
+const userList = () => axios.get(`${SERVER}/users`)
 // by. userLogin
-const userLogin = X => axios.post(`${SERVER}/users/login`, JSON.stringify(X),{headers})
+const userLogin = x => axios.post(`${SERVER}/users/login`, JSON.stringify(x),{headers})
 // by. userModify
-const userModify = X => axios.put(`${SERVER}/users`, JSON.stringify(X),{headers})
+const userModify = x => axios.put(`${SERVER}/users`, JSON.stringify(x),{headers})
 // by. userRemove
-const userRemove = X => axios.delete(`${SERVER}/users/${X.userId}`, JSON.stringify(X.userId), {headers})
+const userRemove = x => axios.delete(`${SERVER}/users/${x.userId}`)
 
 
 export default {
   userJoin,
   userDetail,
-  userlist,
+  userList,
   userLogin,
   userModify,
   userRemove
