@@ -51,8 +51,9 @@ export default function UserAdd() {
     //   }
 
       const handleSubmit = async (e) => {
-        e.preventDefault()
-        e.stopPropagation()     //
+        e.preventDefault()      // 기본으로 정의된 이벤트를 작동하지 못하게 하는 메서드  
+                                // 이 페이지에 없어서, 작동하지 않도록 하지 않고, 'dispatch(joinPage(json))'으로 찾아서 작동할 수 있도록 함을 의도
+        e.stopPropagation()     // 이벤트가 상위 DOM으로 전달,전파를 하지 않도록 하는 코드 / 이벤트 전파를 막아 주지만 기본 이벤트를 막아주진 않음
         /* const formData = new FormData()
         formData.append('username', join.username)
         formData.append('password', join.password)
