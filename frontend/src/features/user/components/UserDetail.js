@@ -8,10 +8,10 @@ export default function UserDetail() {
     const [detail, setDetail] = useState({
         userId:'', username:'', password:'', email:'', name:'', regDate: new Date().toLocaleDateString()
     })
-    
+
     const userDetail = () => {
         const sessionUser = JSON.parse(localStorage.getItem('sessionUser'))
-        alert('사용자 아이디 : '+ sessionUser.userId)
+        // alert('사용자 아이디 : '+ sessionUser.userId)
         // axios.get(`${SERVER}/users/${sessionUser.userId}`)
         userDetail(sessionUser)
         .then(res => {
