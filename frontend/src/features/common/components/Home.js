@@ -2,9 +2,10 @@ import React from "react";
 import { useHistory } from 'react-router-dom';
 
 export default function Home() {
-    const sessionUser = localStorage.getItem("sessionUser")
+    
     const history = useHistory()
-
+    const sessionUser = localStorage.getItem("sessionUser")
+    alert(JSON.stringify(sessionUser))
     const logout = e => {
         e.preventDefault()
         localStorage.setItem('sessionUser','')

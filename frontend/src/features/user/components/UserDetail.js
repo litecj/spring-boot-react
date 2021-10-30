@@ -1,29 +1,33 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { Link} from 'react-router-dom';
 // import axios from 'axios';
 
 export default function UserDetail() {
     // const SERVER = 'http://localhost:8080'
     const history = useHistory()
-    const [detail, setDetail] = useState({
-        userId:'', username:'', password:'', email:'', name:'', regDate: new Date().toLocaleDateString()
-    })
+    const dispatch = useDispatch()
+    const detail = JSON.parse(localStorage.getItem('sessionUser'))
+    // const [detail, setDetail] = useState({
+    //     userId:'', username:'', password:'', email:'', name:'', regDate: new Date().toLocaleDateString()
+    // })
 
-    const userDetail = () => {
-        const sessionUser = JSON.parse(localStorage.getItem('sessionUser'))
-        // alert('사용자 아이디 : '+ sessionUser.userId)
-        // axios.get(`${SERVER}/users/${sessionUser.userId}`)
-        userDetail(sessionUser)
-        .then(res => {
-        setDetail(res.data)
-        })
-        .catch(err => {
-            alert(`${err}`)
-        })
-        }
-    useEffect(()=> {
-        userDetail()}, 
-        [])
+    // const userDetail = () => {
+    //     const sessionUser = JSON.parse(localStorage.getItem('sessionUser'))
+    //     // alert('사용자 아이디 : '+ sessionUser.userId)
+    //     // axios.get(`${SERVER}/users/${sessionUser.userId}`)
+    //     userDetail(sessionUser)
+    //     .then(res => {
+    //     setDetail(res.data)
+    //     })
+    //     .catch(err => {
+    //         alert(`${err}`)
+    //     })
+    //     }
+    // useEffect(()=> {
+    //     userDetail()}, 
+    //     [])
     const logout = e => {
         e.preventDefault()
         localStorage.setItem('sessionUser','')
@@ -62,6 +66,7 @@ export default function UserDetail() {
               </li>
               <li>
                   <input type="button" value="회원정보 수정" onClick={()=> history.push('/users/modify')}/>
+                  {/* <input type="button" value="로그아웃" onClick={dispatch(logout())}/> */}
                   <input type="button" value="로그아웃" onClick={logout}/>
               </li>
           </ul>

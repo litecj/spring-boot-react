@@ -3,40 +3,46 @@ import { useDispatch } from 'react-redux';
 // import axios from 'axios'
 import { useHistory } from 'react-router-dom';
 import { loginPage } from '../reducer/userSlice';
+import { useForm } from "react-hook-form";
+import styled from 'styled-components'
 
 export default function UserLogin() {
   // const SERVER = 'http://localhost:8080'
-  const [login, setLogin] = useState({})
-  const {username, password} = login
-  const history = useHistory()
+  // const [login, setLogin] = useState({})
+  // const {username, password} = login
+  // const history = useHistory()
   const dispatch = useDispatch()
 
-  const handleChange = e => {
-    const {value, name} = e.target
-    setLogin({
-      ...login,
-      [name] : value
-    })
-  }
-  // const headers = {
-  //   'Content-Type' : 'application/json',
-  //   'Authorization': 'JWT fefege..'
+  const { register, handleSubmit, formState: { errors } } = useForm();
+        // https://react-hook-form.com/kr/advanced-usage/
+
+  // const handleChange = e => {
+  //   const {value, name} = e.target
+  //   setLogin({
+  //     ...login,
+  //     [name] : value
+  //   })
   // }
-  const handleClick =  async e => {
-    e.preventDefault()
-    e.stopPropagation()
-    const loginRequest = {username, password}
-    await dispatch(loginPage(loginRequest))
-    const loginUSer = JSON.parse(localStorage.getItem('sessionUser'))
-    if(loginUSer.userId !== ''){
-      alert(`'${loginUSer.name}'님 로그인을 환영합니다.`)
-      history.push("/users/detail")
-    }else{
-      alert('아이디, 비번 오류로 인한 로그인 실패')
-      document.getElementById('username').value = ''
-      document.getElementById('password').value = ''
-      history.push("/users/login")}
-    }
+  // // const headers = {
+  // //   'Content-Type' : 'application/json',
+  // //   'Authorization': 'JWT fefege..'
+  // // }
+  // const onSubmit =  async e => {
+  //   // e.preventDefault()
+  //   // e.stopPropagation()
+  //   const loginRequest = {username, password}
+  //   await dispatch(loginPage(loginRequest))
+  //   const loginUSer = JSON.parse(localStorage.getItem('sessionUser'))
+  //   if(loginUSer.userId !== ''){
+  //     alert(`'${loginUSer.name}'님 로그인을 환영합니다.`)
+  //     // history.push("/")
+  //     history.push("/users/detail")
+  //   }else{
+  //     alert('아이디, 비번 오류로 인한 로그인 실패')
+  //     document.getElementById('username').value = ''
+  //     document.getElementById('password').value = ''
+  //     history.push("/users/login")}
+  //   }
 
 
     /*
@@ -63,16 +69,34 @@ export default function UserLogin() {
   // const userLogin = loginRequest => 
   //   axios.post(`${SERVER}/users/login`, JSON.stringify(loginRequest),{headers})
   return (
-    <form method="POST" style={{margin:'20px'}}>
+    <form method='POST' onSubmit={handleSubmit(async (data) => {await dispatch(loginPage(data))})} style={{margin:'20px'}}>
       <h1>LOGIN</h1>
       <ul>
           <li><label for="id">아이디</label>
-          <input type="text" id="username" 
-              name='username' value={username} onChange={handleChange}/></li>
+          <input type="text" id="username" aria-invalid={errors.username ? "true" : "false"}
+              {...register('username', { required: true, maxLength: 30 })}/></li>
+          <li style={{listStyleType:"none"}}>
+              <small>
+                  {errors.username && errors.username.type === "required" && (<Span role="alert">This is required</Span>)}
+                  {errors.username && errors.username.type === "maxLength" && (<Span role="alert">Max length exceeded</Span>)}
+              </small>
+          </li>
           <li><label for="pw">비밀번호</label>
-          <input type="password" id="password" name="password" value={password} onChange={handleChange}/></li>
-          <li><input type="button" title="로그인" value="로그인" onClick={handleClick}/></li>
+          <input type="password" id="password" aria-invalid={errors.password ? "true" : "false"}
+              {...register('password', { required: true, maxLength: 30 })}/></li>
+          <li style={{listStyleType:"none"}}>
+              <small>
+                  {errors.password && errors.password.type === "required" && (<Span role="alert">This is required</Span>)}
+                  {errors.password && errors.password.type === "maxLength" && (<Span role="alert">Max length exceeded</Span>)}
+              </small>
+          </li>
+          <li><input type="submit" title="로그인" value="로그인" /></li>
       </ul>
-</form>
+    </form>
   );
 }
+
+const Span = styled.span`
+    color: red;
+    font-weight: bold;
+`
