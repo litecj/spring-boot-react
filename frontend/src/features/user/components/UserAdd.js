@@ -157,7 +157,9 @@ export default function UserAdd() {
                             {errors.name && errors.name.type === "maxLength" && (<Span role="alert">Max length exceeded</Span>)}
                     </small>
                 </li>
-                <li>
+                <br/>
+              
+                <li style={{listStyleType:'none'}}>   
                     {/* <input type="submit" onClick={ e => onSubmit(e)} value="회원가입"/> */}
                     <input type="submit" value="회원가입"/>
                 </li>

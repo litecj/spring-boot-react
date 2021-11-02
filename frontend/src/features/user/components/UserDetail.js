@@ -66,8 +66,11 @@ export default function UserDetail() {
                       이름: <span> {detail.name} </span>
                   </label>
               </li>
-              <li>
-                  <input type="button" value="회원정보 수정" onClick={()=> history.push('/users/modify')}/>
+
+              <br/>
+              
+              <li style={{listStyleType:'none'}}>
+                  <input style={{marginRight:'20px'}} type="button" value="회원정보 수정" onClick={()=> history.push('/users/modify')}/>
                   {/* <input type="button" value="로그아웃" onClick={dispatch(logout())}/> */}
                   <Logout/>
               </li>

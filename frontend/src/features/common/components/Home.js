@@ -30,6 +30,22 @@ export default function Home() {
     return (<>
         <div style={{margin:'20px'}}>
             {/* <form style={{margin:'20px'}}> */}
+
+                <h1>Home</h1>
+                {  localStorage.length == 0
+                //  { localStorage.getItem("sessionUser") === null
+                ? <><button onClick = {e => window.location.href = `/users/add`}>회원가입</button><button onClick = {e => window.location.href = `/users/login`}>로그인</button></>
+                : <><h1>안녕 :) <br/> "{JSON.parse(window.localStorage.getItem('sessionUser')).name}" 아 <br/> 로그인 중이네 ...  ?</h1></>
+                // : <><button onClick = {e => window.location.href = `/users/add`}>회원가입</button><button onClick = {e => window.location.href = `/users/login`}>로그인</button></>
+                // :<><button onClick = {e => history.push('/users/add')}>회원가입</button><button onClick = {e => history.push('/users/login')}>로그인</button></>
+                // :<><h1>안녕 :) <br/> {JSON.parse(window.localStorage.getItem('sessionUser')).name} 아 <br/> 로그인 중이네? ...</h1></>
+                }
+                {/* :<h1> { localStorage.getItem("sessionUser").username} 안녕 :) 로그인 중이네? ...</h1>} */}
+
+                <br/>
+                <br/>
+                <br/>
+
                 { localStorage.length == 0 && <input type="button" value="로그인" onClick={e => window.location.href='/users/login'}/> }
                 {/* { localStorage.length == 0 && <input type="button" value="로그인" onClick={e => history.push('/users/login')}/> } */}
                 {/* { localStorage.getItem("sessionUser") === null && <input type="button" value="로그인" onClick={e => history.push('/users/login')}/> } */}
@@ -37,16 +53,7 @@ export default function Home() {
                 {/* { localStorage.length > 0 && <Logout/> } */}
                 {/* { localStorage.getItem("sessionUser") !== null && <Logout/> } */}
                 {/* {sessionUser !== '' && <input type="button" value="로그아웃" onClick={logout}/> } */}
-                <h1>Home</h1>
-                {  localStorage.length == 0
-                //  { localStorage.getItem("sessionUser") === null
-                    ? <><button onClick = {e => window.location.href = `/users/add`}>회원가입</button><button onClick = {e => window.location.href = `/users/login`}>로그인</button></>
-                    : <><h1>안녕 :) <br/> "{JSON.parse(window.localStorage.getItem('sessionUser')).name}" 아 <br/> 로그인 중이네? ...</h1></>
-                    // : <><button onClick = {e => window.location.href = `/users/add`}>회원가입</button><button onClick = {e => window.location.href = `/users/login`}>로그인</button></>
-                    // :<><button onClick = {e => history.push('/users/add')}>회원가입</button><button onClick = {e => history.push('/users/login')}>로그인</button></>
-                    // :<><h1>안녕 :) <br/> {JSON.parse(window.localStorage.getItem('sessionUser')).name} 아 <br/> 로그인 중이네? ...</h1></>
-                    }
-                    {/* :<h1> { localStorage.getItem("sessionUser").username} 안녕 :) 로그인 중이네? ...</h1>} */}
+                
             {/* </form> */}
         </div>
     </>)

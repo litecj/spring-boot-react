@@ -1,8 +1,12 @@
 // import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { UserListForm } from '..';
+import { listPage } from '../reducer/userSlice';
 
 export default function UserList() {
+  const dispatch = useDispatch()
+  // const todo = useSelector((state) => state.todos[props.id])
   const [list, setList] = useState([])
   // const SERVER = 'http://localhost:8080'
 
@@ -13,8 +17,12 @@ export default function UserList() {
       .catch(err => console.log(err))
   }
   useEffect(() => {
-    userList()
+    dispatch(listPage())
   }, [])
+
+  // useEffect(() => {
+  //   userList()
+  // }, [])
 
   return (
     <div>

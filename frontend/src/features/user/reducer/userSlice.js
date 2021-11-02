@@ -168,8 +168,11 @@ const userSlice = createSlice({
       }
     },
     [modifyPage.fulfilled]: ( state, action ) => { 
-      state.userState = action.payload 
-      window.localStorage.setItem('sessionUser', JSON.stringify(action.payload))
+      // state.userState = action.payload 
+      // window.localStorage.setItem('sessionUser', JSON.stringify(action.payload))
+      alert(`회원수정 정보: ${action.payload}`)  // 확인용
+      localStorage.setItem('sessionUser', JSON.stringify(action.payload))
+      window.location.href = `/users/detail`
     },
     [removePage.fulfilled]: ( state, {meta, payload }) => { 
       state.userState = payload

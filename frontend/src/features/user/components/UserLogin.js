@@ -90,7 +90,10 @@ export default function UserLogin() {
                   {errors.password && errors.password.type === "maxLength" && (<Span role="alert">Max length exceeded</Span>)}
               </small>
           </li>
-          <li><input type="submit" title="로그인" value="로그인" /></li>
+          <br/>
+              
+          <li style={{listStyleType:'none'}}> 
+          <input type="submit" title="로그인" value="로그인" /></li>
       </ul>
     </form>
   );

@@ -1,9 +1,11 @@
 import axios from 'axios';
 import React, { useState, useCallback } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { modifyPage } from '../reducer/userSlice';
 
 export default function UserModify() {
-    const history = useHistory()
+    // const history = useHistory()
+    const dispatch = useDispatch()
     // const SERVER = 'http://localhost:8080'
     const sessionUser = JSON.parse(localStorage.getItem('sessionUser')); 
     const [modify, setModify] = useState({
@@ -24,10 +26,10 @@ export default function UserModify() {
         })
     }
   
-    const headers = {
-        'Content-Type' : 'application/json',
-        'Authorization': 'JWT fefege..'
-    }
+    // const headers = {
+    //     'Content-Type' : 'application/json',
+    //     'Authorization': 'JWT fefege..'
+    // }
     // const UserModify = modifyRequest => 
     //           axios.put(`${SERVER}/users`, JSON.stringify(modifyRequest),{headers})
 
@@ -46,28 +48,32 @@ export default function UserModify() {
         //         })
         // }
 
-    const handleSubmit = useCallback(
-        e => {
-            e.preventDefault()
-        const modifyRequest = {...modify}
-        alert(`회원수정 정보: ${JSON.stringify(modifyRequest)}`)
-        axios
-        .put(`http://localhost:8080/users`, JSON.stringify(modifyRequest),{headers})
-        .then(res =>{
-            alert(`회원 정보 수정 성공 ${res.data}`)
-            localStorage.setItem('sessionUser', JSON.stringify(res.data))
-            history.push("/users/detail")
-        })
-        .catch(err =>{
-            alert(`회원수정 실패 : ${err}`)
-        })
-        }
-    )
+    // const handleSubmit = useCallback(
+    //     e => {
+    //         e.preventDefault()
+    //     const modifyRequest = {...modify}
+    //     alert(`회원수정 정보: ${JSON.stringify(modifyRequest)}`)
+    //     axios
+    //     .put(`http://localhost:8080/users`, JSON.stringify(modifyRequest),{headers})
+    //     .then(res =>{
+    //         alert(`회원 정보 수정 성공 ${res.data}`)
+    //         localStorage.setItem('sessionUser', JSON.stringify(res.data))
+    //         history.push("/users/detail")
+    //     })
+    //     .catch(err =>{
+    //         alert(`회원수정 실패 : ${err}`)
+    //     })
+    //     }
+    // )
 
   return (
     <div>
             <h1>User Modify</h1>
-        <form onSubmit={handleSubmit} method='PUT' style={{margin:'20px'}}>
+        <form onSubmit={useCallback(e=> {e.preventDefault()
+            // alert(`회원수정 정보: ${JSON.stringify(modifyRequest)}`)
+            dispatch(modifyPage({...modify}))
+        }
+    )} method='PUT' style={{margin:'20px'}}>
             <ul>
                 <li>
                     <label>
@@ -100,7 +106,9 @@ export default function UserModify() {
                         {/* <input type="hidden" id="reg_date" name='reg_date' value={} /> */}
                     </label>
                 </li>
-                <li>
+                <br/>
+              
+                <li style={{listStyleType:'none'}}> 
                     <input type="submit" value="수정확인" />
                 </li>
             </ul>
