@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 // import axios from 'axios'
 import { useHistory } from 'react-router-dom';
-import { loginPage } from '../reducer/userSlice';
+import { login } from '../reducer/userSlice';
 import { useForm } from "react-hook-form";
 import styled from 'styled-components'
+import { Layout } from 'features/common';
 
 export default function UserLogin() {
   // const SERVER = 'http://localhost:8080'
@@ -69,7 +70,8 @@ export default function UserLogin() {
   // const userLogin = loginRequest => 
   //   axios.post(`${SERVER}/users/login`, JSON.stringify(loginRequest),{headers})
   return (
-    <form method='POST' onSubmit={handleSubmit(async (data) => {await dispatch(loginPage(data))})} style={{margin:'20px'}}>
+    <Layout><Main>
+    <form method='POST' onSubmit={handleSubmit(async (data) => {await dispatch(login(data))})} style={{margin:'20px'}}>
       <h1>LOGIN</h1>
       <ul>
           <li><label for="id">아이디</label>
@@ -96,10 +98,19 @@ export default function UserLogin() {
           <input type="submit" title="로그인" value="로그인" /></li>
       </ul>
     </form>
+    </Main>
+    </Layout>
   );
 }
 
 const Span = styled.span`
     color: red;
     font-weight: bold;
+`
+
+const Main = styled.div`
+width: 500px;
+margin: 0 auto;
+text-decoration:none
+text-align: center;
 `

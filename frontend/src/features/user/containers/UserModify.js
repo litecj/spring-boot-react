@@ -1,14 +1,17 @@
 import axios from 'axios';
 import React, { useState, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
-import { modifyPage } from '../reducer/userSlice';
+import { modify } from '../reducer/userSlice';
+import styled from 'styled-components'
+import { Layout } from 'features/common';
 
 export default function UserModify() {
     // const history = useHistory()
     const dispatch = useDispatch()
     // const SERVER = 'http://localhost:8080'
     const sessionUser = JSON.parse(localStorage.getItem('sessionUser')); 
-    const [modify, setModify] = useState({
+    // const [modify, setModify] = useState({
+    const [param, setParam] = useState({
       userId: sessionUser.userId,
       username:sessionUser.username,
       password:sessionUser.password,
@@ -20,8 +23,8 @@ export default function UserModify() {
     const {userId, username, password, email, name} = modify
     const handleChange = e => {
         const { value, name } = e.target
-        setModify({
-            ...modify,
+        setParam({
+            ...param,
             [name] : value
         })
     }
@@ -68,10 +71,11 @@ export default function UserModify() {
 
   return (
     <div>
+        <Layout><Main>
             <h1>User Modify</h1>
         <form onSubmit={useCallback(e=> {e.preventDefault()
             // alert(`회원수정 정보: ${JSON.stringify(modifyRequest)}`)
-            dispatch(modifyPage({...modify}))
+            dispatch(modify({...param}))
         }
     )} method='PUT' style={{margin:'20px'}}>
             <ul>
@@ -113,6 +117,15 @@ export default function UserModify() {
                 </li>
             </ul>
         </form>
+        </Main>
+    </Layout>
     </div>
   );
 }
+
+const Main = styled.div`
+width: 500px;
+margin: 0 auto;
+text-decoration:none
+text-align: center;
+`

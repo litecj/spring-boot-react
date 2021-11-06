@@ -2,9 +2,10 @@
 import React, { useState, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { joinPage } from 'features/user/reducer/userSlice'
+import {  join, exist  } from 'features/user/reducer/userSlice'
 import { useForm } from "react-hook-form";
 import styled from 'styled-components'
+import { Layout } from 'features/common';
 
 // import { useSelector, useDispatch } from 'react-reㄴdux';
 // import {
@@ -56,60 +57,67 @@ export default function UserAdd() {
     //     'Authorization': 'JWT fefege..'
     //   }
 
-      const onSubmit = async (data) => {
-        // e.preventDefault()      // 기본으로 정의된 이벤트를 작동하지 못하게 하는 메서드  
-        //                         // 이 페이지에 없어서, 작동하지 않도록 하지 않고, 'dispatch(joinPage(json))'으로 찾아서 작동할 수 있도록 함을 의도
-        // e.stopPropagation()     // 이벤트가 상위 DOM으로 전달,전파를 하지 않도록 하는 코드 / 이벤트 전파를 막아 주지만 기본 이벤트를 막아주진 않음
-        /* const formData = new FormData()
-        formData.append('username', join.username)
-        formData.append('password', join.password)
-        formData.append('email', join.email)
-        formData.append('name', join.name)
-        formData.append('regDate', join.regDate)
+    //   const onSubmit = async (data) => {
+    //     // e.preventDefault()      // 기본으로 정의된 이벤트를 작동하지 못하게 하는 메서드  
+    //     //                         // 이 페이지에 없어서, 작동하지 않도록 하지 않고, 'dispatch(joinPage(json))'으로 찾아서 작동할 수 있도록 함을 의도
+    //     // e.stopPropagation()     // 이벤트가 상위 DOM으로 전달,전파를 하지 않도록 하는 코드 / 이벤트 전파를 막아 주지만 기본 이벤트를 막아주진 않음
+    //     /* const formData = new FormData()
+    //     formData.append('username', join.username)
+    //     formData.append('password', join.password)
+    //     formData.append('email', join.email)
+    //     formData.append('name', join.name)
+    //     formData.append('regDate', join.regDate)
 
-        alert(`회원가입 ID 2 : ${formData.get('username')}`)
-        await dispatch(joinPage(formData))
-        alert(`${join.username} 회원가입 환영`)
-        history.push('/users/login') */
+    //     alert(`회원가입 ID 2 : ${formData.get('username')}`)
+    //     await dispatch(joinPage(formData))
+    //     alert(`${join.username} 회원가입 환영`)
+    //     history.push('/users/login') */
 
-        // const json = {
-        //     'username': join.username,
-        //     'password': join.password,
-        //     'email': join.email,
-        //     'name': join.name,
-        //     'regDate': join.regDate
-        // }
-        // alert(`회원가입 정보: ${JSON.stringify(json)}`)
-        // await dispatch(joinPage(data))  // dispatch의 함수로써 실행
-        // alert(`${join.username} 회원가입 환영`)
-        // history.push('/users/login')    // 'history' 객체(SJON)의 'push'메소드로써 실행
-        // const joinRequest = {...join}
-        // alert(`회원가입 정보: ${JSON.stringify(joinRequest)}`)
-        // userJoin(joinRequest)
-        // .then(res =>{
-        //     alert('회원가입 성공')
-        //     history.push('/users/login')
-        // })
-        // .catch(err =>{
-        //     alert(`회원가입 실패 : ${err}`)
-        // })
-    }
+    //     // const json = {
+    //     //     'username': join.username,
+    //     //     'password': join.password,
+    //     //     'email': join.email,
+    //     //     'name': join.name,
+    //     //     'regDate': join.regDate
+    //     // }
+    //     // alert(`회원가입 정보: ${JSON.stringify(json)}`)
+    //     // await dispatch(joinPage(data))  // dispatch의 함수로써 실행
+    //     // alert(`${join.username} 회원가입 환영`)
+    //     // history.push('/users/login')    // 'history' 객체(SJON)의 'push'메소드로써 실행
+    //     // const joinRequest = {...join}
+    //     // alert(`회원가입 정보: ${JSON.stringify(joinRequest)}`)
+    //     // userJoin(joinRequest)
+    //     // .then(res =>{
+    //     //     alert('회원가입 성공')
+    //     //     history.push('/users/login')
+    //     // })
+    //     // .catch(err =>{
+    //     //     alert(`회원가입 실패 : ${err}`)
+    //     // })
+    // }
 
   return (
     <div>
-            <h1 style={{marginLeft:'20px'}}>WELLCOME</h1>
-        <form onSubmit={handleSubmit(async ({...data}) => {await dispatch(joinPage({...data,  regDate: new Date().toLocaleDateString()}))})} method='POST' style={{margin:'20px'}}>
+        <Layout>
+        <Main>
+        <h1 style={{marginLeft:'20px'}}>WELLCOME</h1>
+        <form method='POST' onSubmit={ handleSubmit(async (data) => {await dispatch(join({...data, regDate: new Date().toLocaleDateString()}))})}>
+        {/* <form onSubmit={handleSubmit(async ({...data}) => {await dispatch(joinPage({...data,  regDate: new Date().toLocaleDateString()}))})} method='POST' style={{margin:'20px'}}> */}
             <h1>JOIN</h1>
             <ul>
                 <li>
                     <label>
                          {/* use aria-invalid to indicate field contain error */}
-                        아이디: 
-                        <input type="text" id="username" aria-invalid={errors.username ? "true" : "false"}
+                        아이디 : <input type="text" id="username"  aria-invalid={errors.username ? "true" : "false"}
                             {...register('username', { required: true, maxLength: 30 })}size="10" minlength="4"/>  
                         {/* <input type="text" id="username" aria-invalid={errors.username ? "true" : "false"}
                             {...register('username', { required: true, maxLength: 30 })} name='username' value={username} onChange = {handleChange} size="10" minlength="4"/>   */}
+                            <button onClick={() => dispatch(exist(document.getElementById('username').value))} style={{marginLeft:'10px'}}>중복체크</button>
+                            {/* 중복 체크 필수 확인 */}
                     </label>
+
+                </li>
+                <li style={{listStyleType:"none"}}>
                     <small>4~15자리 이내의 영문과 숫자</small>
                 </li>
                 <li style={{listStyleType:"none"}}>
@@ -165,6 +173,7 @@ export default function UserAdd() {
                 </li>
             </ul>
         </form>
+        </Main></Layout>
     </div>
   );
 }
@@ -176,4 +185,11 @@ export default function UserAdd() {
 const Span = styled.span`
     color: red;
     font-weight: bold;
+`
+
+const Main = styled.div`
+width: 500px;
+margin: 0 auto;
+text-decoration:none
+text-align: center;
 `

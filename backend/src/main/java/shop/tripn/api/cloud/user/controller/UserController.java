@@ -69,18 +69,25 @@ public class UserController implements CommonController<User, Long> {
 //        return new ResponseEntity<>(userDTO, HttpStatus.OK);
 //    }
 
-    @GetMapping()
     @Override
     public ResponseEntity<List<User>> findAll() {
+        return null;
+    }
+//    public ResponseEntity<List<User>> findAll() {
+//        return ResponseEntity.ok(userRepository.findAll());
+//    }
+
+    @GetMapping("/list/{page}")
+    public ResponseEntity<List<User>> getList(@PathVariable int page) {
+//        System.out.println(":::::::::: PAGENUMBER :::::::::::" + page);
         return ResponseEntity.ok(userRepository.findAll());
     }
 
     @Override
     @GetMapping("/{id}")
     public ResponseEntity<User> getById(@PathVariable Long id) {
+        return ResponseEntity.ok(userRepository.getById(id)); }
 
-        return ResponseEntity.ok(userRepository.getById(id));
-    }
     @PostMapping("")
     @Override
     public ResponseEntity<String> save(@RequestBody User user) {
@@ -98,10 +105,20 @@ public class UserController implements CommonController<User, Long> {
     public ResponseEntity<Optional<User>> findById(Long id) {
         return ResponseEntity.ok(userRepository.findById(id));
     }
+
+    @GetMapping("/existsById/{id}")
     @Override
     public ResponseEntity<Boolean> existsById(Long id) {
-        return ResponseEntity.ok(userRepository.existsById(id));
+        System.out.println(" id " + id);
+        boolean b = userRepository.existsById(id);
+        System.out.println(" Exist : "+b);
+        return ResponseEntity.ok(b);
+//        return ResponseEntity.ok(userRepository.existsById(id));
     }
+
+    @GetMapping("/exist/{username}")
+    public ResponseEntity<Boolean> exist(@PathVariable String username) {
+        return ResponseEntity.ok(userRepository.existsByUsername(username));}
 
     @Override
     public ResponseEntity<Long> count() {
@@ -110,7 +127,7 @@ public class UserController implements CommonController<User, Long> {
 
     @DeleteMapping("/{id}")
     @Override
-    public ResponseEntity<String> deleteById(Long id) {
+    public ResponseEntity<String> deleteById(@PathVariable Long id) {
         userRepository.deleteById(id);
         return ResponseEntity.ok("SUCCESS");
     }

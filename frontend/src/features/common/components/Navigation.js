@@ -10,16 +10,23 @@ const Navigation = () => {
             <ul style={{backgroundColor : 'A9D1D6', overflow : 'hidden', listStyleType:'none'}}>
                          
                 <LI><Link to='/home' style={{ textDecoration:'none' }}>Home</Link></LI>
-                <LI><Link to='/users/add' style={{ textDecoration:'none' }}>UserAdd</Link></LI>
-                <LI><Link to='/users/detail' style={{ textDecoration:'none' }}>UserDetail</Link></LI>
-                <LI><Link to='/users/list' style={{ textDecoration:'none' }}>UserList</Link></LI>
-                <LI><Link to='/users/login' style={{ textDecoration:'none' }}>UserLogin</Link></LI>
-                <LI><Link to='/users/modify' style={{ textDecoration:'none' }}>UserModify</Link></LI>
-                <LI><Link to='/users/remove' style={{ textDecoration:'none' }}>UserRemove</Link></LI>
-                {  localStorage.length == 0 
-                ?<><LI><button><Link to='/users/add' style={{ textDecoration:'none' }}>회원가입</Link></button></LI>
-                <LI><button><Link to='/users/login' style={{ textDecoration:'none' }}>로그인</Link></button></LI></>
-                :<><LI><Link to='/users/detail' style={{ textDecoration:'none' }}> 안녕 :) {JSON.parse(window.localStorage.getItem('sessionUser')).name} 님</Link> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <Logout/></LI></>}
+                {localStorage.length > 0 
+                    ? <><LI><Link to='/users/detail' style={{ textDecoration:'none' }}>UserDetail</Link></LI>
+                        <LI><Link to='/users/modify' style={{ textDecoration:'none' }}>UserModify</Link></LI>
+                        <LI><Link to='/users/remove' style={{ textDecoration:'none' }}>UserRemove</Link></LI>
+                        <LI><Link to='/users/list' style={{ textDecoration:'none' }}>UserList</Link></LI>
+                        <Ul><LI><Link to='/users/detail' style={{ textDecoration:'none' }}> 안녕 :) {JSON.parse(window.localStorage.getItem('sessionUser')).name} 님</Link> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <Logout/></LI> </Ul></>
+                    : <><LI><Link to='/users/add' style={{ textDecoration:'none' }}>UserAdd</Link></LI>
+                        <LI><Link to='/users/list' style={{ textDecoration:'none' }}>UserList</Link></LI>
+                    </> }
+                
+                {/* <LI><Link to='/users/login' style={{ textDecoration:'none' }}>UserLogin</Link></LI> */}
+                {/* {  localStorage.length == 0 
+                ?<>
+                <LI><button><Link to='/users/add' style={{ textDecoration:'none' }}>회원가입</Link></button></LI>
+                <LI><button><Link to='/users/login' style={{ textDecoration:'none' }}>로그인</Link></button></LI>
+                </>
+                :<><LI><Link to='/users/detail' style={{ textDecoration:'none' }}> 안녕 :) {JSON.parse(window.localStorage.getItem('sessionUser')).name} 님</Link> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <Logout/></LI></>} */}
 
                 <br/>
 
@@ -54,11 +61,12 @@ const LI = styled.li`
 `
 
 
-// const Ul = styled.div`
-//     background-color : A9D1D6;
-//     list-style-type : none;
-//     margin: 0;
-//     padding : 0;
-//     overflow : hidden;
-// `
+const Ul = styled.div`
+    background-color : A9D1D6;
+    list-style-type : none;
+    // margin: 0;
+    // padding : 0;
+    // overflow : hidden;
+    float : right;
+`
 

@@ -1,9 +1,11 @@
+import { Layout } from 'features/common';
 import React, { useState, useEffect, useCallback } from 'react';
 // import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 // import { Link} from 'react-router-dom';
 import { Logout } from '..';
 // import axios from 'axios';
+import styled from "styled-components";
 
 export default function UserDetail() {
     // const SERVER = 'http://localhost:8080'
@@ -38,6 +40,8 @@ export default function UserDetail() {
 
   return (
     <div>
+        <Layout>
+            <Main>
         <form style={{margin:'20px'}}>
           <h1>회원 정보</h1>
           <ul>
@@ -76,6 +80,15 @@ export default function UserDetail() {
               </li>
           </ul>
         </form>
+        </Main>
+        </Layout>
     </div>
   );
 }
+
+const Main = styled.div`
+width: 500px;
+margin: 0 auto;
+text-decoration:none
+text-align: center;
+`

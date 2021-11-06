@@ -75,48 +75,96 @@ import { userAPI } from 'features/user';
 
 
 
-const userJoinPage = async (X) => {
-  const res = await userAPI.userJoin(X)  // async : 비동기(호출 되었을 때? = 값이 들어 올때 까지) / await : 이 함수가 호출 되었을 때 까지 기다려 => 값이 들어오면 반응 할거야
+// const userJoinPage = async (X) => {
+//   const res = await userAPI.userJoin(X)  // async : 비동기(호출 되었을 때? = 값이 들어 올때 까지) / await : 이 함수가 호출 되었을 때 까지 기다려 => 값이 들어오면 반응 할거야
+//   return res.data
+// }
+
+// const userDetailPage = async (X) => {
+//   const res = await userAPI.userDetail(X)
+//   return res.data
+// }
+
+// const EXIST = async (x) => {
+//   const res = await userAPI.exist(x)
+//   return res.data
+// }
+
+// const userListPage = async ({page}) => {
+//   const res = await userAPI.userList(page)  // async : 비동기(호출 되었을 때? = 값이 들어 올때 까지) -> 값이 들어오면 반응 BUT list는 'useEffect' 사용하기에 즉시 이벤트 발생
+//                                              // await : 이 함수가 호출 되었을 때 까지 기다려 BUT list는 필요 값 없으므로 바로 반응
+//                                              // if 필요 값 지정 시, JAVA에서 값 송출하는 것이 없기에, 계속 wait 중 -> (반응 없음)값 확인 불가
+//   return res.data
+// }
+
+// const userLoginPage = async (X) => {
+//   const res = await userAPI.userLogin(X)
+//   return res.data
+// }
+
+// const userModifyPage = async (X) => {
+//   const res = await userAPI.userModify(X)
+//   return res.data
+// }
+
+// const userRemovePage = async (X) => {
+//   const res = await userAPI.userRemove(X)
+//   return res.data
+// }
+
+const JOIN = async (x) => {
+  const res = await userAPI.join(x)
   return res.data
 }
-
-const userDetailPage = async (X) => {
-  const res = await userAPI.userDetail(X)
-  return res.data
+const EXIST = async (x) => {
+ const res = await userAPI.exist(x)
+ return res.data
+}
+const DETAIL = async (x) => {
+ const res = await userAPI.detail(x)
+ return res.data
+}
+const LIST = async ({page}) => {
+ const res = await userAPI.list(page)
+ return res.data
+}
+const LOGIN = async (x) => {
+ const res = await userAPI.login(x) 
+ return res.data
+}
+const MODIFY = async (x) => {
+ const res = await userAPI.modify(x)
+ return res.data
+}
+const REMOVE = async (x) => {
+ const res = await userAPI.remove(x)
+ return res.data
 }
 
-const userListPage = async () => {
-  const res = await userAPI.userList()  // async : 비동기(호출 되었을 때? = 값이 들어 올때 까지) -> 값이 들어오면 반응 BUT list는 'useEffect' 사용하기에 즉시 이벤트 발생
-                                             // await : 이 함수가 호출 되었을 때 까지 기다려 BUT list는 필요 값 없으므로 바로 반응
-                                             // if 필요 값 지정 시, JAVA에서 값 송출하는 것이 없기에, 계속 wait 중 -> (반응 없음)값 확인 불가
-  return res.data
-}
 
-const userLoginPage = async (X) => {
-  const res = await userAPI.userLogin(X)
-  return res.data
-}
+export const join = createAsyncThunk('users/join', JOIN)
+export const exist = createAsyncThunk('users/exist', EXIST)
+export const detail = createAsyncThunk('users/dtail', DETAIL)
+export const list = createAsyncThunk('users/list', LIST)
+export const login = createAsyncThunk('users/login', LOGIN)
+export const modify = createAsyncThunk('users/modify', MODIFY)
+export const remove = createAsyncThunk('users/remove', REMOVE)
 
-const userModifyPage = async (X) => {
-  const res = await userAPI.userModify(X)
-  return res.data
-}
 
-const userRemovePage = async (X) => {
-  const res = await userAPI.userRemove(X)
-  return res.data
-}
 
-export const joinPage = createAsyncThunk('users/join', userJoinPage)
-export const detailPage = createAsyncThunk('users/dtail', userDetailPage)
-export const listPage = createAsyncThunk('users/list', userListPage)
-export const loginPage = createAsyncThunk('users/login', userLoginPage)
-export const modifyPage = createAsyncThunk('users/modify', userModifyPage)
-export const removePage = createAsyncThunk('users/remove', userRemovePage)
-export const logout = () => {
-  window.localStorage.setItem('sessionUser','')
-  window.location.href = '/home'
-}
+// export const joinPage = createAsyncThunk('users/join', userJoinPage)
+// export const detailPage = createAsyncThunk('users/dtail', userDetailPage)
+// export const listPage = createAsyncThunk('users/list', userListPage)
+// export const loginPage = createAsyncThunk('users/login', userLoginPage)
+// export const modifyPage = createAsyncThunk('users/modify', userModifyPage)
+// export const removePage = createAsyncThunk('users/remove', userRemovePage)
+
+// export const logout = () => {
+//   window.localStorage.setItem('sessionUser','')
+//   window.location.href = '/home'
+// }
+// export const exist = createAsyncThunk('users/exist', EXIST)
+
 const changeNull = ls =>{
   for(const i of ls ){
     document.getElementById(i).value = ''
@@ -137,26 +185,88 @@ const changeNull = ls =>{
 // }, {}, any>): Slice<...>
 // import createSlice
 
+// const userSlice = createSlice({
+//   name: 'users',
+//   initialState: {
+//     userState: {
+//       // userId : '', 
+//       username:'', password:'', email:'', name:'', regDate: ''
+//     },
+//     usersState: [],
+//     type: '',
+//     keyword: '',
+//     params: {}
+//   },
+//   reducers: {},
+//   extraReducers: {
+//     [joinPage.fulfilled]: ( state, action ) => { 
+//       state.userState = action.payload 
+//       window.location.href = `/users/login`
+//     },
+//     [detailPage.fulfilled]: ( state, {meta, payload} ) => { state.userState = payload},
+//     [listPage.fulfilled]: ( state, {meta, payload} ) => { state.pageResult = payload },
+//     [loginPage.fulfilled]: ( state, {meta, payload} ) => {
+//       state.userState = payload
+//       window.localStorage.setItem('sessionUser', JSON.stringify(payload))
+//       if(payload.username != null){
+//         alert(`${payload.name}님 환영합니다`)
+//         window.location.href = `/users/detail`
+//       }else{
+//         alert('아이디, 비번 오류로 로그인 실패  ')
+//         changeNull(['username','password'])
+//       }
+//     },
+//     [modifyPage.fulfilled]: ( state, action ) => { 
+//       // state.userState = action.payload 
+//       // window.localStorage.setItem('sessionUser', JSON.stringify(action.payload))
+//       alert(`회원수정 정보: ${action.payload}`)  // 확인용
+//       localStorage.setItem('sessionUser', JSON.stringify(action.payload))
+//       window.location.href = `/users/detail`
+//     },
+//     [removePage.fulfilled]: ( state, {meta, payload }) => { 
+//       // state.userState = payload
+//       // window.location.href = `/`
+//       window.localStorage.removeItem("sessionUser"); 
+//       window.localStorage.clear(); 
+//       window.location.href = "/home"
+//       // window.localStorage.setItem('sessionUser', '')
+//     },
+
+//     [exist.fulfilled]: ( state, action ) => { 
+//       if(action.payload){window.location.href='/users/add'}
+//       else{ alert(`사용가능함`) }
+//     }
+
+
+//   }
+// })
+
 const userSlice = createSlice({
   name: 'users',
   initialState: {
-    userState: {
-      // userId : '', 
-      username:'', password:'', email:'', name:'', regDate: ''
-    },
+    userState: {username:'', password:'', email:'', name:'', regDate: ''},
+    usersState: [],
     type: '',
     keyword: '',
     params: {}
   },
+  
   reducers: {},
   extraReducers: {
-    [joinPage.fulfilled]: ( state, action ) => { 
+    [join.fulfilled]: ( state, action ) => { 
       state.userState = action.payload 
       window.location.href = `/users/login`
     },
-    [detailPage.fulfilled]: ( state, {meta, payload} ) => { state.userState = payload},
-    [listPage.fulfilled]: ( state, {meta, payload} ) => { state.pageResult = payload },
-    [loginPage.fulfilled]: ( state, {meta, payload} ) => {
+    [exist.fulfilled]: ( state, action ) => { 
+      if(action.payload){
+        alert(`이미 사용중인 아이디 입니다`)
+        window.location.href='/users/add'}
+      else{ alert(`사용가능함`) }
+    },
+    [detail.fulfilled]: ( state, {meta, payload} ) => { state.userState = payload},
+    [list.fulfilled]: ( state, {meta, payload} ) => { 
+      state.usersState = payload },
+    [login.fulfilled]: ( state, {meta, payload} ) => {
       state.userState = payload
       window.localStorage.setItem('sessionUser', JSON.stringify(payload))
       if(payload.username != null){
@@ -167,21 +277,21 @@ const userSlice = createSlice({
         changeNull(['username','password'])
       }
     },
-    [modifyPage.fulfilled]: ( state, action ) => { 
-      // state.userState = action.payload 
-      // window.localStorage.setItem('sessionUser', JSON.stringify(action.payload))
-      alert(`회원수정 정보: ${action.payload}`)  // 확인용
+    [modify.fulfilled]: ( state, action ) => { 
       localStorage.setItem('sessionUser', JSON.stringify(action.payload))
-      window.location.href = `/users/detail`
+      window.location.href = "/users/detail"
     },
-    [removePage.fulfilled]: ( state, {meta, payload }) => { 
-      state.userState = payload
-      window.localStorage.setItem('sessionUser', '')
+    [remove.fulfilled]: () => { 
+      window.localStorage.removeItem("sessionUser"); 
+      window.localStorage.clear(); 
+      window.location.href = "/home"
     }
   }
+
 })
 
 export const currentUserState = state => state.users.userState
 export const currentUserParam = state => state.users.param
+export const currentUsersState = state => state.users.usersState  // 추가???
 
 export default userSlice.reducer;
